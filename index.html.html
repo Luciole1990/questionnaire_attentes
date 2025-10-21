@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire d'attentes - Formation VSS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Quicksand:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #ff9a56 0%, #ffad56 50%, #ff6b95 100%);
+            min-height: 100vh;
+            padding: 20px;
+            font-weight: 400;
+            letter-spacing: 0.01em;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 50%, #ff6b95 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        .header p {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            opacity: 0.95;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 17px;
+            letter-spacing: 0.01em;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e1e8ed;
+            border-radius: 12px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.01em;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background-color: #fff2f0;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            accent-color: #ff6b6b;
+        }
+
+        .checkbox-item label {
+            margin-bottom: 0;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 15px;
+            color: #4a5568;
+            letter-spacing: 0.01em;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 50%, #ffa726 100%);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .success-message {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 1px solid #a5d6a7;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+
+        .scale-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding: 10px;
+            background: #fff8f0;
+            border-radius: 10px;
+        }
+
+        .scale-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .scale-item input[type="radio"] {
+            margin-bottom: 5px;
+            width: 20px;
+            height: 20px;
+            accent-color: #ff6b6b;
+        }
+
+        .scale-item label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            text-align: center;
+            font-weight: 500;
+            margin-bottom: 0;
+            color: #6b7280;
+            letter-spacing: 0.01em;
+        }
+
+        .info-box {
+            background: #fff8e1;
+            border: 1px solid #ffcc02;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #744210;
+            font-weight: 500;
+        }
+
+        .info-box strong {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            color: #92400e;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header, .form-container {
+                padding: 20px;
+            }
+            
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="formContainer">
+        <div class="header">
+            <h1>📋 Questionnaire d'attentes</h1>
+            <p>"Prévenir et faire face aux agissements sexistes et au harcèlement sexuel au travail"</p>
+        </div>
+
+        <div class="form-container">
+            <div class="info-box">
+                <strong>ℹ️ Pourquoi ce questionnaire ?</strong><br>
+                Vos réponses m'aident à adapter la formation à vos besoins spécifiques et à préparer des exemples concrets correspondant à votre réalité professionnelle.
+            </div>
+
+            <form id="expectationsForm">
+                <div class="form-group">
+                    <label for="name">Nom et Prénom <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="organization">Organisme de formation / Structure <span class="required">*</span></label>
+                    <input type="text" id="organization" name="organization" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Dans quel(s) domaine(s) intervenez-vous principalement ? <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="technique" name="domains" value="Formations techniques (BTP, industrie)">
+                            <label for="technique">Formations techniques (BTP, industrie)</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="management" name="domains" value="Management/RH">
+                            <label for="management">Management/RH</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="securite" name="domains" value="Sécurité/Prévention">
+                            <label for="securite">Sécurité/Prévention</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="tertiaire" name="domains" value="Tertiaire/Services">
+                            <label for="tertiaire">Tertiaire/Services</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="softskills" name="domains" value="Soft skills/Développement personnel">
+                            <label for="softskills">Soft skills/Développement personnel</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="metiers" name="domains" value="Formations métiers spécifiques">
+                            <label for="metiers">Formations métiers spécifiques</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="fonction-publique" name="domains" value="Fonction publique">
+                            <label for="fonction-publique">Fonction publique</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="autres-domaines" name="domains" value="Autres">
+                            <label for="autres-domaines">Autres</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="public">Quel(s) type(s) de public(s) formez-vous habituellement ? <span class="required">*</span></label>
+                    <textarea id="public" name="public" required placeholder="Ex: ouvriers BTP, managers, agents publics, personnel soignant, salariés en reconversion..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="sectors">Dans quel(s) secteur(s) d'activité interviennent vos stagiaires ? <span class="required">*</span></label>
+                    <textarea id="sectors" name="sectors" required placeholder="Ex: BTP, industrie, santé, éducation, commerce, administration..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="encountered">Avez-vous déjà été confronté·e à des situations liées aux VSS (violences sexistes et sexuelles) dans votre pratique professionnelle (si vous avez été confronté à des situations hors professionnel, vous pouvez en dire un mot si vous le souhaitez, bien entendu !) ?</label>
+                    <select id="encountered" name="encountered">
+                        <option value="">Sélectionnez...</option>
+                        <option value="jamais">Jamais</option>
+                        <option value="rarement">Rarement (1-2 fois)</option>
+                        <option value="parfois">Parfois (quelques fois par an)</option>
+                        <option value="souvent">Souvent (régulièrement)</option>
+                        <option value="tres-souvent">Très souvent</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="situations">Si oui, pouvez-vous décrire brièvement une situation marquante ? (facultatif)</label>
+                    <textarea id="situations" name="situations" placeholder="Description : contexte, type de situation, réaction, difficulté rencontrée..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="knowledge">Comment évaluez-vous votre niveau de connaissance actuel sur les VSS (cadre juridique, prévention, orientation) ? <span class="required">*</span></label>
+                    <div class="scale-group">
+                        <div class="scale-item">
+                            <input type="radio" id="knowledge1" name="knowledge" value="1" required>
+                            <label for="knowledge1">Très faible</label>
+                        </div>
+                        <div class="scale-item">
+                            <input type="radio" id="knowledge2" name="knowledge" value="2" required>
+                            <label for="knowledge2">Faible</label>
+                        </div>
+                        <div class="scale-item">
+                            <input type="radio" id="knowledge3" name="knowledge" value="3" required>
+                            <label for="knowledge3">Moyen</label>
+                        </div>
+                        <div class="scale-item">
+                            <input type="radio" id="knowledge4" name="knowledge" value="4" required>
+                            <label for="knowledge4">Bon</label>
+                        </div>
+                        <div class="scale-item">
+                            <input type="radio" id="knowledge5" name="knowledge" value="5" required>
+                            <label for="knowledge5">Très bon</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Quelles sont vos principales attentes pour cette formation ? <span class="required">*</span></label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="exp1" name="expectations" value="Maîtriser le cadre juridique des VSS">
+                            <label for="exp1">Maîtriser le cadre juridique des VSS</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="exp2" name="expectations" value="Savoir identifier les situations VSS">
+                            <label for="exp2">Savoir identifier les situations VSS</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="exp3" name="expectations" value="Intégrer les VSS dans mes formations existantes">
+                            <label for="exp3">Intégrer les VSS dans mes formations existantes</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="exp4" name="expectations" value="Animer des modules de sensibilisation VSS">
+                            <label for="exp4">Animer des modules de sensibilisation VSS</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="exp5" name="expectations" value="Gérer les réactions difficiles en formation">
+                            <label for="exp5">Gérer les réactions difficiles en formation</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="exp6" name="expectations" value="Connaître les ressources d'orientation">
+                            <label for="exp6">Connaître les ressources d'orientation</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="exp7" name="expectations" value="Adapter les outils à mes publics spécifiques">
+                            <label for="exp7">Adapter les outils à mes publics spécifiques</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="exp8" name="expectations" value="Définir mon rôle et mes limites">
+                            <label for="exp8">Définir mon rôle et mes limites</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="integration">Envisagez-vous d'intégrer cette thématique dans vos formations existantes ou de créer des modules dédiés ? <span class="required">*</span></label>
+                    <select id="integration" name="integration" required>
+                        <option value="">Sélectionnez...</option>
+                        <option value="integrer">Intégrer dans mes formations existantes</option>
+                        <option value="modules">Créer des modules dédiés VSS</option>
+                        <option value="les-deux">Les deux</option>
+                        <option value="incertain">Je ne sais pas encore</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="specific">Y a-t-il des points spécifiques que vous aimeriez voir abordés selon vos domaines d'intervention ? <span class="required">*</span></label>
+                    <textarea id="specific" name="specific" required placeholder="Ex: VSS dans les vestiaires de chantier, gestion d'équipes masculines, formation de managers..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    📤 Envoyer mes attentes
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Page de remerciement -->
+    <div class="container" id="thankYouContainer" style="display: none;">
+        <div class="header">
+            <h1>✅ Merci !</h1>
+            <p>Votre questionnaire a bien été envoyé</p>
+        </div>
+
+        <div class="form-container" style="text-align: center;">
+            <div style="font-size: 80px; margin: 30px 0;">🎉</div>
+            
+            <h2 style="color: #ff6b6b; font-family: 'Outfit', sans-serif; margin-bottom: 20px;">
+                Vos attentes ont été prises en compte
+            </h2>
+            
+            <p style="font-size: 18px; line-height: 1.8; color: #4a5568; margin-bottom: 30px;">
+                Merci d'avoir pris le temps de remplir ce questionnaire.<br>
+                Vos réponses vont me permettre d'adapter le contenu que je vous proposerai <span style="font-size: 32px;">⚙️</span>
+            </p>
+            
+            <p style="font-size: 16px; color: #6b7280; margin-top: 40px;">
+                À très bientôt !<br>
+                <strong style="color: #ff6b6b;">Mélanie Laizet</strong>
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        // Initialiser EmailJS
+        emailjs.init('2uCYv4GfoiF3cQV6k');
+
+        document.getElementById('expectationsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Désactiver le bouton pour éviter les doubles soumissions
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '⏳ Envoi en cours...';
+            
+            // Collecter les données des checkboxes
+            const domainsCheckboxes = document.querySelectorAll('input[name="domains"]:checked');
+            const expectationsCheckboxes = document.querySelectorAll('input[name="expectations"]:checked');
+            
+            const domains = Array.from(domainsCheckboxes).map(cb => cb.value).join(', ') || 'Non renseigné';
+            const expectations = Array.from(expectationsCheckboxes).map(cb => cb.value).join(', ') || 'Non renseigné';
+            
+            // Préparer les données pour EmailJS
+            const templateParams = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                organization: document.getElementById('organization').value,
+                domains: domains,
+                public: document.getElementById('public').value,
+                sectors: document.getElementById('sectors').value,
+                encountered: document.getElementById('encountered').value || 'Non renseigné',
+                knowledge: document.querySelector('input[name="knowledge"]:checked')?.value || 'Non renseigné',
+                situations: document.getElementById('situations').value || 'Non renseigné',
+                expectations: expectations,
+                integration: document.getElementById('integration').value,
+                specific: document.getElementById('specific').value || 'Non renseigné'
+            };
+            
+            // Envoyer via EmailJS
+            emailjs.send('service_xoxb5ag', 'template_9srkupf', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    
+                    // Masquer le formulaire et afficher la page de remerciement
+                    document.getElementById('formContainer').style.display = 'none';
+                    document.getElementById('thankYouContainer').style.display = 'block';
+                    
+                    // Faire défiler vers le haut
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    alert('Une erreur est survenue lors de l\'envoi. Veuillez réessayer ou vérifier votre connexion internet.');
+                    
+                    // Réactiver le bouton
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                });
+        });
+        
+        // Validation en temps réel
+        document.querySelectorAll('input[required], select[required], textarea[required]').forEach(field => {
+            field.addEventListener('blur', function() {
+                if (!this.value) {
+                    this.style.borderColor = '#e74c3c';
+                } else {
+                    this.style.borderColor = '#27ae60';
+                }
+            });
+        });
+        
+        // Validation des checkboxes obligatoires
+        document.querySelectorAll('input[name="domains"], input[name="expectations"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const domainsChecked = document.querySelectorAll('input[name="domains"]:checked').length > 0;
+                const expectationsChecked = document.querySelectorAll('input[name="expectations"]:checked').length > 0;
+                
+                if (this.name === 'domains' && !domainsChecked) {
+                    this.closest('.checkbox-group').style.outline = '2px solid #e74c3c';
+                } else if (this.name === 'domains' && domainsChecked) {
+                    this.closest('.checkbox-group').style.outline = 'none';
+                }
+                
+                if (this.name === 'expectations' && !expectationsChecked) {
+                    document.querySelectorAll('.checkbox-group')[1].style.outline = '2px solid #e74c3c';
+                } else if (this.name === 'expectations' && expectationsChecked) {
+                    document.querySelectorAll('.checkbox-group')[1].style.outline = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
